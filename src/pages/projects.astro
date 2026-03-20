@@ -3,7 +3,8 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
-const projects = await getCollection('projects');
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
 const active = projects.filter((p) => p.data.status === 'active');
 const archived = projects.filter((p) => p.data.status === 'archived');
 ---

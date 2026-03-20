@@ -6,14 +6,18 @@ Built with [Astro](https://astro.build), styled with [Catppuccin Mocha](https://
 
 ## Local Development
 
+```bash
 npm install
 npm run dev
+```
 
-Open http://localhost:4321
+Open [http://localhost:4321](http://localhost:4321).
 
 ## Build
 
+```bash
 npm run build
+```
 
 Static output goes to `dist/`.
 
@@ -21,15 +25,46 @@ Static output goes to `dist/`.
 
 ### Blog Post
 
-Create `src/content/blog/your-slug.mdx` with frontmatter: title, date, description, tags, draft
+Create `src/content/blog/your-slug.mdx`:
+
+```yaml
+---
+title: "Your Title"
+date: 2026-01-01
+description: "Short description."
+tags: ["tag1", "tag2"]
+draft: false
+---
+```
 
 ### TIL Entry
 
-Create `src/content/til/your-slug.md` with frontmatter: title, date, tags
+Create `src/content/til/your-slug.md`:
+
+```yaml
+---
+title: "What you learned"
+date: 2026-01-01
+tags: ["topic"]
+---
+```
 
 ### Project
 
-Create `src/content/projects/your-slug.md` with frontmatter: name, description, stack, status, url, repo. Optional body for expandable section.
+Create `src/content/projects/your-slug.md`:
+
+```yaml
+---
+name: "Project Name"
+description: "One-liner"
+stack: ["Tech1", "Tech2"]
+status: "active"
+url: "https://example.com"
+repo: "https://github.com/you/repo"
+---
+
+Optional longer description shown in expandable section.
+```
 
 ## Deployment
 
@@ -37,5 +72,5 @@ Push to `main` → Cloudflare Pages auto-deploys.
 
 ## License
 
-- Code: MIT (LICENSE-CODE)
-- Content: CC BY 4.0 (LICENSE-CONTENT)
+- Code: [MIT](LICENSE-CODE)
+- Content: [CC BY 4.0](LICENSE-CONTENT)

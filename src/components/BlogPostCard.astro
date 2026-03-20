@@ -1,0 +1,31 @@
+---
+import TagList from './TagList.astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  description: string;
+  tags: string[];
+  id: string;
+}
+
+const { title, date, description, tags, id } = Astro.props;
+const dateStr = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<article class="py-4 border-b border-ctp-surface0 last:border-0">
+  <a href={`/blog/${id}`} class="group">
+    <time class="text-xs text-ctp-overlay0">{dateStr}</time>
+    <h3 class="text-lg text-ctp-mauve group-hover:text-ctp-lavender transition-colors mt-1">
+      {title}
+    </h3>
+    <p class="text-sm text-ctp-subtext0 mt-1">{description}</p>
+  </a>
+  <div class="mt-2">
+    <TagList tags={tags} />
+  </div>
+</article>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  id: string;
+}
+
+const { title, date, id } = Astro.props;
+const dateStr = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<a href={`/til/${id}`} class="flex gap-4 py-2 group">
+  <time class="text-xs text-ctp-overlay0 shrink-0 pt-0.5 tabular-nums">{dateStr}</time>
+  <span class="text-sm text-ctp-text group-hover:text-ctp-mauve transition-colors">{title}</span>
+</a>

@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TilEntry from '../../components/TilEntry.astro';
+
+const entries = (await getCollection('til'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="TIL">
+  <h1 class="text-2xl font-bold text-ctp-mauve mb-6">
+    <span class="text-ctp-green">$</span> cat ~/til
+  </h1>
+  {entries.length === 0 ? (
+    <p class="text-ctp-overlay0">Nothing yet.</p>
+  ) : (
+    <div class="divide-y divide-ctp-surface0">
+      {entries.map((entry) => (
+        <TilEntry title={entry.data.title} date={entry.data.date} id={entry.id} />
+      ))}
+    </div>
+  )}
+</BaseLayout>

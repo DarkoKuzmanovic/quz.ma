@@ -1,43 +1,41 @@
-# Astro Starter Kit: Minimal
+# quz.ma
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Personal website. Blog, TIL, and projects.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Built with [Astro](https://astro.build), styled with [Catppuccin Mocha](https://catppuccin.com), deployed to [Cloudflare Pages](https://pages.cloudflare.com).
 
-## 🚀 Project Structure
+## Local Development
 
-Inside of your Astro project, you'll see the following folders and files:
+npm install
+npm run dev
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Open http://localhost:4321
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Build
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+npm run build
 
-Any static assets, like images, can be placed in the `public/` directory.
+Static output goes to `dist/`.
 
-## 🧞 Commands
+## Writing Content
 
-All commands are run from the root of the project, from a terminal:
+### Blog Post
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Create `src/content/blog/your-slug.mdx` with frontmatter: title, date, description, tags, draft
 
-## 👀 Want to learn more?
+### TIL Entry
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Create `src/content/til/your-slug.md` with frontmatter: title, date, tags
+
+### Project
+
+Create `src/content/projects/your-slug.md` with frontmatter: name, description, stack, status, url, repo. Optional body for expandable section.
+
+## Deployment
+
+Push to `main` → Cloudflare Pages auto-deploys.
+
+## License
+
+- Code: MIT (LICENSE-CODE)
+- Content: CC BY 4.0 (LICENSE-CONTENT)

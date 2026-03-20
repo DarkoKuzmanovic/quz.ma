@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-ctp-base: #1e1e2e;
+  --color-ctp-mantle: #181825;
+  --color-ctp-crust: #11111b;
+  --color-ctp-text: #cdd6f4;
+  --color-ctp-subtext1: #bac2de;
+  --color-ctp-subtext0: #a6adc8;
+  --color-ctp-overlay2: #9399b2;
+  --color-ctp-overlay1: #7f849c;
+  --color-ctp-overlay0: #6c7086;
+  --color-ctp-surface2: #585b70;
+  --color-ctp-surface1: #45475a;
+  --color-ctp-surface0: #313244;
+  --color-ctp-mauve: #cba6f7;
+  --color-ctp-blue: #89b4fa;
+  --color-ctp-green: #a6e3a1;
+  --color-ctp-peach: #fab387;
+  --color-ctp-red: #f38ba8;
+  --color-ctp-yellow: #f9e2af;
+  --color-ctp-teal: #94e2d5;
+  --color-ctp-lavender: #b4befe;
+}
+
+@utility prose-terminal {
+  --tw-prose-body: var(--color-ctp-text);
+  --tw-prose-headings: var(--color-ctp-mauve);
+  --tw-prose-lead: var(--color-ctp-subtext1);
+  --tw-prose-links: var(--color-ctp-green);
+  --tw-prose-bold: var(--color-ctp-text);
+  --tw-prose-counters: var(--color-ctp-mauve);
+  --tw-prose-bullets: var(--color-ctp-mauve);
+  --tw-prose-hr: var(--color-ctp-surface1);
+  --tw-prose-quotes: var(--color-ctp-subtext1);
+  --tw-prose-quote-borders: var(--color-ctp-surface2);
+  --tw-prose-captions: var(--color-ctp-subtext0);
+  --tw-prose-code: var(--color-ctp-peach);
+  --tw-prose-pre-code: var(--color-ctp-text);
+  --tw-prose-pre-bg: var(--color-ctp-mantle);
+  --tw-prose-th-borders: var(--color-ctp-surface2);
+  --tw-prose-td-borders: var(--color-ctp-surface0);
+}
+
+@layer base {
+  html {
+    font-family: "JetBrains Mono", monospace;
+    background-color: var(--color-ctp-base);
+    color: var(--color-ctp-text);
+  }
+
+  ::selection {
+    background-color: var(--color-ctp-surface2);
+    color: var(--color-ctp-text);
+  }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}

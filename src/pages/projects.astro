@@ -1,0 +1,58 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = await getCollection('projects');
+const active = projects.filter((p) => p.data.status === 'active');
+const archived = projects.filter((p) => p.data.status === 'archived');
+---
+
+<BaseLayout title="Projects">
+  <h1 class="text-2xl font-bold text-ctp-mauve mb-6">
+    <span class="text-ctp-green">$</span> ls ~/projects
+  </h1>
+  <div class="grid gap-4">
+    {active.map(async (project) => {
+      const { Content } = await render(project);
+      const hasBody = project.body && project.body.trim().length > 0;
+      return (
+        <ProjectCard
+          name={project.data.name}
+          description={project.data.description}
+          stack={project.data.stack}
+          status={project.data.status}
+          url={project.data.url}
+          repo={project.data.repo}
+          hasBody={hasBody}
+        >
+          <Content />
+        </ProjectCard>
+      );
+    })}
+  </div>
+  {archived.length > 0 && (
+    <>
+      <h2 class="text-lg font-bold text-ctp-overlay1 mt-10 mb-4">Archived</h2>
+      <div class="grid gap-4">
+        {archived.map(async (project) => {
+          const { Content } = await render(project);
+          const hasBody = project.body && project.body.trim().length > 0;
+          return (
+            <ProjectCard
+              name={project.data.name}
+              description={project.data.description}
+              stack={project.data.stack}
+              status={project.data.status}
+              url={project.data.url}
+              repo={project.data.repo}
+              hasBody={hasBody}
+            >
+              <Content />
+            </ProjectCard>
+          );
+        })}
+      </div>
+    </>
+  )}
+</BaseLayout>

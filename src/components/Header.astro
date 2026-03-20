@@ -1,0 +1,36 @@
+---
+const navItems = [
+  { label: 'blog', href: '/blog' },
+  { label: 'til', href: '/til' },
+  { label: 'projects', href: '/projects' },
+  { label: 'about', href: '/about' },
+  { label: 'uses', href: '/uses' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-ctp-base/90 backdrop-blur-sm border-b border-ctp-surface0">
+  <nav class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="text-ctp-green font-bold hover:text-ctp-mauve transition-colors">
+      quz.ma
+    </a>
+    <ul class="flex gap-4 text-sm">
+      {navItems.map(({ label, href }) => (
+        <li>
+          <a
+            href={href}
+            class:list={[
+              'transition-colors',
+              currentPath.startsWith(href)
+                ? 'text-ctp-mauve'
+                : 'text-ctp-overlay1 hover:text-ctp-text',
+            ]}
+          >
+            <span class="text-ctp-surface2">$</span> {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>

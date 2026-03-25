@@ -21,7 +21,8 @@ const dateStr = entry.data.date.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={entry.data.title}>
-  <article>
+  <a href="/til" class="text-sm text-ctp-overlay1 hover:text-ctp-text transition-colors">&larr; back to til</a>
+  <article class="mt-4">
     <header class="mb-6">
       <time class="text-sm text-ctp-overlay0">{dateStr}</time>
       <h1 class="text-xl font-bold text-ctp-mauve mt-2">{entry.data.title}</h1>

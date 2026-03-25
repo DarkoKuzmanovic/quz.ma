@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404">
+  <div class="flex flex-col items-center justify-center py-20 text-center">
+    <h1 class="text-4xl font-bold text-ctp-red mb-4">404</h1>
+    <p class="text-ctp-overlay1 mb-6">
+      <span class="text-ctp-green">$</span> cat page.txt<br />
+      <span class="text-ctp-red">cat: page.txt: No such file or directory</span>
+    </p>
+    <a href="/" class="text-ctp-green hover:text-ctp-mauve transition-colors">
+      &larr; cd ~
+    </a>
+  </div>
+</BaseLayout>

@@ -21,6 +21,12 @@ npm run build
 
 Static output goes to `dist/`.
 
+## Configuration
+
+Site-wide constants live in `src/consts.ts`:
+
+- `PROMPT_PREFIX` — the terminal prompt character used across all pages (default: `>`)
+
 ## Writing Content
 
 ### Blog Post

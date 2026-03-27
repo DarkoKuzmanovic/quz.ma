@@ -26,7 +26,8 @@ src/
 
 ## Conventions
 
-- Terminal aesthetic: `$` prefixes, monospace, dark theme
+- Terminal aesthetic: prompt prefixes, monospace, dark theme
+- `PROMPT_PREFIX` const in `src/consts.ts` controls the terminal prompt character site-wide
 - Catppuccin color tokens: `ctp-base`, `ctp-mauve`, `ctp-green`, etc.
 - Content types: blog (MDX), TIL (MD), projects (MD with status enum)
 - Draft support via `draft: true` in blog frontmatter

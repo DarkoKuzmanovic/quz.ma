@@ -1,0 +1,220 @@
+---
+const themes = [
+  { id: 'catppuccin-mocha', name: 'Catppuccin Mocha', accent: '#cba6f7' },
+  { id: 'dracula', name: 'Dracula', accent: '#bd93f9' },
+  { id: 'gruvbox', name: 'Gruvbox Dark', accent: '#fabd2f' },
+  { id: 'nord', name: 'Nord', accent: '#88c0d0' },
+  { id: 'solarized', name: 'Solarized Dark', accent: '#268bd2' },
+  { id: 'tokyo-night', name: 'Tokyo Night', accent: '#7aa2f7' },
+];
+---
+
+<div class="relative inline-block" id="theme-picker">
+  <button
+    id="theme-toggle"
+    class="w-5 h-5 rounded-full border-2 border-ctp-surface2 hover:border-ctp-overlay1 transition-colors cursor-pointer"
+    style="background-color: var(--color-ctp-mauve);"
+    aria-label="Change theme"
+    title="Change theme"
+  ></button>
+
+  <div
+    id="theme-popup"
+    class="hidden absolute bottom-8 right-0 bg-ctp-mantle border border-ctp-surface0 rounded-lg p-2 shadow-lg min-w-[160px] z-50"
+  >
+    {themes.map(({ id, name, accent }) => (
+      <button
+        class="theme-option flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs text-ctp-overlay1 hover:text-ctp-text hover:bg-ctp-surface0 transition-colors cursor-pointer text-left"
+        data-theme={id}
+      >
+        <span class="w-3 h-3 rounded-full shrink-0" style={`background-color: ${accent};`}></span>
+        {name}
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  const themes: Record<string, Record<string, string>> = {
+    'catppuccin-mocha': {
+      '--color-ctp-base': '#1e1e2e',
+      '--color-ctp-mantle': '#181825',
+      '--color-ctp-crust': '#11111b',
+      '--color-ctp-text': '#cdd6f4',
+      '--color-ctp-subtext1': '#bac2de',
+      '--color-ctp-subtext0': '#a6adc8',
+      '--color-ctp-overlay2': '#9399b2',
+      '--color-ctp-overlay1': '#7f849c',
+      '--color-ctp-overlay0': '#6c7086',
+      '--color-ctp-surface2': '#585b70',
+      '--color-ctp-surface1': '#45475a',
+      '--color-ctp-surface0': '#313244',
+      '--color-ctp-mauve': '#cba6f7',
+      '--color-ctp-blue': '#89b4fa',
+      '--color-ctp-green': '#a6e3a1',
+      '--color-ctp-peach': '#fab387',
+      '--color-ctp-red': '#f38ba8',
+      '--color-ctp-yellow': '#f9e2af',
+      '--color-ctp-teal': '#94e2d5',
+      '--color-ctp-lavender': '#b4befe',
+    },
+    'dracula': {
+      '--color-ctp-base': '#282a36',
+      '--color-ctp-mantle': '#21222c',
+      '--color-ctp-crust': '#191a21',
+      '--color-ctp-text': '#f8f8f2',
+      '--color-ctp-subtext1': '#e0e0da',
+      '--color-ctp-subtext0': '#c8c8c2',
+      '--color-ctp-overlay2': '#a0a0a0',
+      '--color-ctp-overlay1': '#7c7c7c',
+      '--color-ctp-overlay0': '#6272a4',
+      '--color-ctp-surface2': '#535669',
+      '--color-ctp-surface1': '#44475a',
+      '--color-ctp-surface0': '#383a4a',
+      '--color-ctp-mauve': '#bd93f9',
+      '--color-ctp-blue': '#8be9fd',
+      '--color-ctp-green': '#50fa7b',
+      '--color-ctp-peach': '#ffb86c',
+      '--color-ctp-red': '#ff5555',
+      '--color-ctp-yellow': '#f1fa8c',
+      '--color-ctp-teal': '#8be9fd',
+      '--color-ctp-lavender': '#bd93f9',
+    },
+    'gruvbox': {
+      '--color-ctp-base': '#282828',
+      '--color-ctp-mantle': '#1d2021',
+      '--color-ctp-crust': '#141617',
+      '--color-ctp-text': '#ebdbb2',
+      '--color-ctp-subtext1': '#d5c4a1',
+      '--color-ctp-subtext0': '#bdae93',
+      '--color-ctp-overlay2': '#a89984',
+      '--color-ctp-overlay1': '#928374',
+      '--color-ctp-overlay0': '#7c6f64',
+      '--color-ctp-surface2': '#665c54',
+      '--color-ctp-surface1': '#504945',
+      '--color-ctp-surface0': '#3c3836',
+      '--color-ctp-mauve': '#d3869b',
+      '--color-ctp-blue': '#83a598',
+      '--color-ctp-green': '#b8bb26',
+      '--color-ctp-peach': '#fe8019',
+      '--color-ctp-red': '#fb4934',
+      '--color-ctp-yellow': '#fabd2f',
+      '--color-ctp-teal': '#8ec07c',
+      '--color-ctp-lavender': '#d3869b',
+    },
+    'nord': {
+      '--color-ctp-base': '#2e3440',
+      '--color-ctp-mantle': '#272c36',
+      '--color-ctp-crust': '#20242d',
+      '--color-ctp-text': '#eceff4',
+      '--color-ctp-subtext1': '#e5e9f0',
+      '--color-ctp-subtext0': '#d8dee9',
+      '--color-ctp-overlay2': '#b0b8c8',
+      '--color-ctp-overlay1': '#8891a5',
+      '--color-ctp-overlay0': '#6b7386',
+      '--color-ctp-surface2': '#4c566a',
+      '--color-ctp-surface1': '#434c5e',
+      '--color-ctp-surface0': '#3b4252',
+      '--color-ctp-mauve': '#b48ead',
+      '--color-ctp-blue': '#81a1c1',
+      '--color-ctp-green': '#a3be8c',
+      '--color-ctp-peach': '#d08770',
+      '--color-ctp-red': '#bf616a',
+      '--color-ctp-yellow': '#ebcb8b',
+      '--color-ctp-teal': '#88c0d0',
+      '--color-ctp-lavender': '#8fbcbb',
+    },
+    'solarized': {
+      '--color-ctp-base': '#002b36',
+      '--color-ctp-mantle': '#00252f',
+      '--color-ctp-crust': '#001f27',
+      '--color-ctp-text': '#fdf6e3',
+      '--color-ctp-subtext1': '#eee8d5',
+      '--color-ctp-subtext0': '#d4cfc4',
+      '--color-ctp-overlay2': '#93a1a1',
+      '--color-ctp-overlay1': '#839496',
+      '--color-ctp-overlay0': '#657b83',
+      '--color-ctp-surface2': '#586e75',
+      '--color-ctp-surface1': '#2a4a53',
+      '--color-ctp-surface0': '#073642',
+      '--color-ctp-mauve': '#6c71c4',
+      '--color-ctp-blue': '#268bd2',
+      '--color-ctp-green': '#859900',
+      '--color-ctp-peach': '#cb4b16',
+      '--color-ctp-red': '#dc322f',
+      '--color-ctp-yellow': '#b58900',
+      '--color-ctp-teal': '#2aa198',
+      '--color-ctp-lavender': '#6c71c4',
+    },
+    'tokyo-night': {
+      '--color-ctp-base': '#1a1b26',
+      '--color-ctp-mantle': '#16161e',
+      '--color-ctp-crust': '#101014',
+      '--color-ctp-text': '#c0caf5',
+      '--color-ctp-subtext1': '#a9b1d6',
+      '--color-ctp-subtext0': '#9aa5ce',
+      '--color-ctp-overlay2': '#787c99',
+      '--color-ctp-overlay1': '#565f89',
+      '--color-ctp-overlay0': '#414868',
+      '--color-ctp-surface2': '#3b3f5c',
+      '--color-ctp-surface1': '#33354a',
+      '--color-ctp-surface0': '#292e42',
+      '--color-ctp-mauve': '#bb9af7',
+      '--color-ctp-blue': '#7aa2f7',
+      '--color-ctp-green': '#9ece6a',
+      '--color-ctp-peach': '#ff9e64',
+      '--color-ctp-red': '#f7768e',
+      '--color-ctp-yellow': '#e0af68',
+      '--color-ctp-teal': '#73daca',
+      '--color-ctp-lavender': '#b4f9f8',
+    },
+  };
+
+  function applyTheme(themeId: string) {
+    const vars = themes[themeId];
+    if (!vars) return;
+    const root = document.documentElement;
+    for (const [key, val] of Object.entries(vars)) {
+      root.style.setProperty(key, val);
+    }
+    localStorage.setItem('theme', themeId);
+
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) toggle.style.backgroundColor = vars['--color-ctp-mauve'];
+
+    document.querySelectorAll('.theme-option').forEach((btn) => {
+      const el = btn as HTMLElement;
+      el.classList.toggle('text-ctp-text', el.dataset.theme === themeId);
+      el.classList.toggle('text-ctp-overlay1', el.dataset.theme !== themeId);
+    });
+  }
+
+  // Toggle popup
+  const toggle = document.getElementById('theme-toggle');
+  const popup = document.getElementById('theme-popup');
+
+  toggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    popup?.classList.toggle('hidden');
+  });
+
+  // Theme selection
+  document.querySelectorAll('.theme-option').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const themeId = (btn as HTMLElement).dataset.theme;
+      if (themeId) applyTheme(themeId);
+      popup?.classList.add('hidden');
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', () => {
+    popup?.classList.add('hidden');
+  });
+
+  popup?.addEventListener('click', (e) => e.stopPropagation());
+
+  // Apply saved theme
+  const saved = localStorage.getItem('theme');
+  if (saved && themes[saved]) applyTheme(saved);
+</script>

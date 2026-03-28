@@ -7,9 +7,10 @@ interface Props {
   url?: string;
   repo?: string;
   image?: string;
+  hasBody: boolean;
 }
 
-const { name, description, stack, status, url, repo, image } = Astro.props;
+const { name, description, stack, status, url, repo, image, hasBody } = Astro.props;
 ---
 
 <div
@@ -57,5 +58,15 @@ const { name, description, stack, status, url, repo, image } = Astro.props;
         </a>
       )}
     </div>
+    {hasBody && (
+      <details class="text-sm">
+        <summary class="text-ctp-overlay1 cursor-pointer hover:text-ctp-text transition-colors">
+          more info
+        </summary>
+        <div class="prose prose-terminal prose-sm max-w-none mt-2">
+          <slot />
+        </div>
+      </details>
+    )}
   </div>
 </div>

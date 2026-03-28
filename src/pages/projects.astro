@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { PROMPT_PREFIX } from '../consts';
@@ -35,34 +35,48 @@ const allTags = [...new Set(projects.flatMap((p) => p.data.stack))].sort();
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="active-grid">
-    {active.map((project) => (
-      <ProjectCard
-        name={project.data.name}
-        description={project.data.description}
-        stack={project.data.stack}
-        status={project.data.status}
-        url={project.data.url}
-        repo={project.data.repo}
-        image={project.data.image}
-      />
-    ))}
+    {active.map(async (project) => {
+      const { Content } = await render(project);
+      const hasBody = !!(project.body?.trim().length);
+      return (
+        <ProjectCard
+          name={project.data.name}
+          description={project.data.description}
+          stack={project.data.stack}
+          status={project.data.status}
+          url={project.data.url}
+          repo={project.data.repo}
+          image={project.data.image}
+          hasBody={hasBody}
+        >
+          <Content />
+        </ProjectCard>
+      );
+    })}
   </div>
 
   {archived.length > 0 && (
     <>
       <h2 class="text-lg font-bold text-ctp-overlay1 mt-10 mb-4" id="archived-heading">Archived</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="archived-grid">
-        {archived.map((project) => (
-          <ProjectCard
-            name={project.data.name}
-            description={project.data.description}
-            stack={project.data.stack}
-            status={project.data.status}
-            url={project.data.url}
-            repo={project.data.repo}
-            image={project.data.image}
-          />
-        ))}
+        {archived.map(async (project) => {
+          const { Content } = await render(project);
+          const hasBody = !!(project.body?.trim().length);
+          return (
+            <ProjectCard
+              name={project.data.name}
+              description={project.data.description}
+              stack={project.data.stack}
+              status={project.data.status}
+              url={project.data.url}
+              repo={project.data.repo}
+              image={project.data.image}
+              hasBody={hasBody}
+            >
+              <Content />
+            </ProjectCard>
+          );
+        })}
       </div>
     </>
   )}

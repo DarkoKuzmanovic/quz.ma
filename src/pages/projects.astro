@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { PROMPT_PREFIX } from '../consts';
@@ -8,53 +8,123 @@ const projects = (await getCollection('projects'))
   .sort((a, b) => a.data.name.localeCompare(b.data.name));
 const active = projects.filter((p) => p.data.status === 'active');
 const archived = projects.filter((p) => p.data.status === 'archived');
+
+const allTags = [...new Set(projects.flatMap((p) => p.data.stack))].sort();
 ---
 
 <BaseLayout title="Projects">
   <h1 class="text-2xl font-bold text-ctp-mauve mb-6">
     <span class="text-ctp-green">{PROMPT_PREFIX}</span> ls ~/projects
   </h1>
-  <div class="grid gap-4">
-    {active.map(async (project) => {
-      const { Content } = await render(project);
-      const hasBody = !!(project.body?.trim().length);
-      return (
-        <ProjectCard
-          name={project.data.name}
-          description={project.data.description}
-          stack={project.data.stack}
-          status={project.data.status}
-          url={project.data.url}
-          repo={project.data.repo}
-          hasBody={hasBody}
-        >
-          <Content />
-        </ProjectCard>
-      );
-    })}
+
+  <div class="flex flex-wrap gap-2 mb-6" id="filter-bar">
+    <button
+      class="text-xs px-3 py-1 rounded border border-ctp-mauve bg-ctp-mauve/20 text-ctp-mauve transition-colors"
+      data-filter="all"
+    >
+      All
+    </button>
+    {allTags.map((tag) => (
+      <button
+        class="text-xs px-3 py-1 rounded border border-ctp-surface1 text-ctp-subtext0 hover:border-ctp-mauve hover:text-ctp-mauve transition-colors"
+        data-filter={tag}
+      >
+        {tag}
+      </button>
+    ))}
   </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="active-grid">
+    {active.map((project) => (
+      <ProjectCard
+        name={project.data.name}
+        description={project.data.description}
+        stack={project.data.stack}
+        status={project.data.status}
+        url={project.data.url}
+        repo={project.data.repo}
+        image={project.data.image}
+      />
+    ))}
+  </div>
+
   {archived.length > 0 && (
     <>
-      <h2 class="text-lg font-bold text-ctp-overlay1 mt-10 mb-4">Archived</h2>
-      <div class="grid gap-4">
-        {archived.map(async (project) => {
-          const { Content } = await render(project);
-          const hasBody = !!(project.body?.trim().length);
-          return (
-            <ProjectCard
-              name={project.data.name}
-              description={project.data.description}
-              stack={project.data.stack}
-              status={project.data.status}
-              url={project.data.url}
-              repo={project.data.repo}
-              hasBody={hasBody}
-            >
-              <Content />
-            </ProjectCard>
-          );
-        })}
+      <h2 class="text-lg font-bold text-ctp-overlay1 mt-10 mb-4" id="archived-heading">Archived</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="archived-grid">
+        {archived.map((project) => (
+          <ProjectCard
+            name={project.data.name}
+            description={project.data.description}
+            stack={project.data.stack}
+            status={project.data.status}
+            url={project.data.url}
+            repo={project.data.repo}
+            image={project.data.image}
+          />
+        ))}
       </div>
     </>
   )}
+
+  <script>
+    const filterBar = document.getElementById('filter-bar')!;
+    const buttons = filterBar.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const cards = document.querySelectorAll<HTMLElement>('[data-stack]');
+    const archivedHeading = document.getElementById('archived-heading');
+
+    const activeClass = 'border-ctp-mauve bg-ctp-mauve/20 text-ctp-mauve';
+    const inactiveClass = 'border-ctp-surface1 text-ctp-subtext0';
+
+    const selectedTags = new Set<string>();
+
+    function updateButtons() {
+      const allActive = selectedTags.size === 0;
+      buttons.forEach((btn) => {
+        const filter = btn.dataset.filter!;
+        const isActive = filter === 'all' ? allActive : selectedTags.has(filter);
+
+        activeClass.split(' ').forEach((c) => btn.classList.toggle(c, isActive));
+        inactiveClass.split(' ').forEach((c) => btn.classList.toggle(c, !isActive));
+      });
+    }
+
+    function updateCards() {
+      const showAll = selectedTags.size === 0;
+      let archivedVisible = 0;
+
+      cards.forEach((card) => {
+        const stack: string[] = JSON.parse(card.dataset.stack!);
+        const match = showAll || stack.some((tag) => selectedTags.has(tag));
+        card.classList.toggle('hidden', !match);
+
+        if (match && card.closest('#archived-grid')) {
+          archivedVisible++;
+        }
+      });
+
+      if (archivedHeading) {
+        archivedHeading.classList.toggle('hidden', archivedVisible === 0 && !showAll);
+      }
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter!;
+
+        if (filter === 'all') {
+          selectedTags.clear();
+        } else {
+          if (selectedTags.has(filter)) {
+            selectedTags.delete(filter);
+          } else {
+            selectedTags.add(filter);
+          }
+        }
+
+        updateButtons();
+        updateCards();
+      });
+    });
+  </script>
 </BaseLayout>

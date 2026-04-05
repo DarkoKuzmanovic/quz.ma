@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { PROMPT_PREFIX } from '../consts';
 
 const projects = (await getCollection('projects'))
   .sort((a, b) => a.data.name.localeCompare(b.data.name));
@@ -13,8 +12,8 @@ const allTags = [...new Set(projects.flatMap((p) => p.data.stack))].sort();
 ---
 
 <BaseLayout title="Projects">
-  <h1 class="text-2xl font-bold text-ctp-mauve mb-6">
-    <span class="text-ctp-green">{PROMPT_PREFIX}</span> ls ~/projects
+  <h1 class="text-lg text-ctp-mauve mb-6">
+    ░&nbsp; PROJECTS
   </h1>
 
   <div class="flex flex-wrap gap-2 mb-6" id="filter-bar">

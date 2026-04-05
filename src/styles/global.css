@@ -1,8 +1,18 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@font-face {
+  font-family: "Departure Mono";
+  src:
+    url("/fonts/DepartureMono-Regular.woff2") format("woff2"),
+    url("/fonts/DepartureMono-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-mono: "JetBrains Mono", monospace;
+  --font-mono: "Departure Mono", monospace;
 
   --color-ctp-base: #1e1e2e;
   --color-ctp-mantle: #181825;
@@ -47,7 +57,11 @@
 
 @layer base {
   html {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "Departure Mono", monospace;
+    font-size: 14px;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
     background-color: var(--color-ctp-base);
     color: var(--color-ctp-text);
   }
@@ -59,5 +73,16 @@
 }
 
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
 }

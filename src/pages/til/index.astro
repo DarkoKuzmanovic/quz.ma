@@ -2,15 +2,14 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TilEntry from '../../components/TilEntry.astro';
-import { PROMPT_PREFIX } from '../../consts';
 
 const entries = (await getCollection('til'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout title="TIL">
-  <h1 class="text-2xl font-bold text-ctp-mauve mb-6">
-    <span class="text-ctp-green">{PROMPT_PREFIX}</span> cat ~/til
+  <h1 class="text-lg text-ctp-mauve mb-6">
+    ░&nbsp; TODAY I LEARNED
   </h1>
   {entries.length === 0 ? (
     <p class="text-ctp-overlay0">Nothing yet.</p>

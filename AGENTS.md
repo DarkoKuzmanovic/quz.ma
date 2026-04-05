@@ -22,7 +22,7 @@ src/
 - **Content collections** with Zod schemas in `content.config.ts`
 - **Tailwind v4** via Vite plugin (CSS-first, no JS config)
 - **Catppuccin Mocha** color palette throughout
-- **JetBrains Mono** monospace font, terminal aesthetic
+- **Departure Mono** pixel font, terminal aesthetic
 
 ## Conventions
 

@@ -23,12 +23,12 @@ const readingTime = Math.max(1, Math.ceil(words / 200));
 ---
 
 <BaseLayout title={title} description={description}>
-  <a href="/blog" class="text-sm text-ctp-overlay1 hover:text-ctp-text transition-colors">&larr; back to blog</a>
+  <a href="/blog" class="text-xs text-ctp-overlay1 hover:text-ctp-text transition-colors">&larr; BACK</a>
   <article class="mt-4">
     <header class="mb-8">
-      <time class="text-sm text-ctp-overlay0">{dateStr}</time>
-      <span class="text-sm text-ctp-overlay0"> &middot; {readingTime} min read</span>
-      <h1 class="text-2xl font-bold text-ctp-mauve mt-2">{title}</h1>
+      <time class="text-xs text-ctp-overlay0">{dateStr}</time>
+      <span class="text-xs text-ctp-overlay0"> &middot; {readingTime} min read</span>
+      <h1 class="text-lg text-ctp-mauve mt-2">{title}</h1>
       <div class="mt-3">
         <TagList tags={tags} />
       </div>

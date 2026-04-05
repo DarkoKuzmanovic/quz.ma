@@ -1,12 +1,10 @@
 ---
-import { PROMPT_PREFIX } from '../consts';
-
 const navItems = [
-  { label: 'blog', href: '/blog' },
-  { label: 'til', href: '/til' },
-  { label: 'projects', href: '/projects' },
-  { label: 'about', href: '/about' },
-  { label: 'uses', href: '/uses' },
+  { label: 'BLOG', href: '/blog', icon: '»' },
+  { label: 'TIL', href: '/til', icon: '»' },
+  { label: 'PROJECTS', href: '/projects', icon: '»' },
+  { label: 'ABOUT', href: '/about', icon: '»' },
+  { label: 'USES', href: '/uses', icon: '»' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -14,13 +12,13 @@ const currentPath = Astro.url.pathname;
 
 <header class="sticky top-0 z-50 bg-ctp-base/90 backdrop-blur-sm border-b border-ctp-surface0">
   <nav class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-    <a href="/" class="text-ctp-green font-bold hover:text-ctp-mauve transition-colors">
-      quz.ma
+    <a href="/" class="text-ctp-green hover:text-ctp-mauve transition-colors tracking-wider">
+      QUZ.MA
     </a>
 
     <!-- Desktop nav -->
-    <ul class="hidden sm:flex gap-4 text-sm">
-      {navItems.map(({ label, href }) => (
+    <ul class="hidden sm:flex gap-5 text-xs uppercase tracking-wider">
+      {navItems.map(({ label, href, icon }) => (
         <li>
           <a
             href={href}
@@ -31,7 +29,7 @@ const currentPath = Astro.url.pathname;
                 : 'text-ctp-overlay1 hover:text-ctp-text',
             ]}
           >
-            <span class="text-ctp-surface2">{PROMPT_PREFIX}</span> {label}
+            <span class="text-ctp-surface2">{icon}</span> {label}
           </a>
         </li>
       ))}
@@ -54,8 +52,8 @@ const currentPath = Astro.url.pathname;
   </nav>
 
   <!-- Mobile menu -->
-  <ul id="mobile-menu" class="hidden sm:hidden px-4 pb-3 text-sm border-t border-ctp-surface0">
-    {navItems.map(({ label, href }) => (
+  <ul id="mobile-menu" class="hidden sm:hidden px-4 pb-3 text-xs uppercase tracking-wider border-t border-ctp-surface0">
+    {navItems.map(({ label, href, icon }) => (
       <li>
         <a
           href={href}
@@ -66,7 +64,7 @@ const currentPath = Astro.url.pathname;
               : 'text-ctp-overlay1 hover:text-ctp-text',
           ]}
         >
-          <span class="text-ctp-surface2">{PROMPT_PREFIX}</span> {label}
+          <span class="text-ctp-surface2">{icon}</span> {label}
         </a>
       </li>
     ))}

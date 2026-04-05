@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogPostCard from '../components/BlogPostCard.astro';
 import TilEntry from '../components/TilEntry.astro';
-import { PROMPT_PREFIX } from '../consts';
 
 const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -15,50 +14,117 @@ const recentTils = (await getCollection('til'))
 ---
 
 <BaseLayout title="Home">
-  <section class="mb-12">
-    <h1 class="text-2xl font-bold text-ctp-green">
-      <span class="inline-block" style="animation: blink 1s step-end infinite;">_</span> quz.ma
+  <section class="mb-16">
+    <h1 class="text-[clamp(4rem,10vw,7rem)] leading-none text-ctp-green tracking-tight">
+      <span class="inline-block bg-ctp-mantle/70 px-3 py-2">QUZ.MA<span
+          aria-hidden="true"
+          class="text-ctp-overlay1"
+          style="animation: blink 1s step-end infinite;"
+        >█</span></span>
     </h1>
-    <p class="text-ctp-subtext0 mt-2">Software engineer. Building things on the web.</p>
+    <p class="text-ctp-subtext0 mt-3 text-sm uppercase tracking-wider">
+      <span id="flap-text" aria-label="Software engineer. Building things on the web."></span>
+    </p>
+
+    <script>
+      const FINAL = "SOFTWARE ENGINEER. BUILDING THINGS ON THE WEB.";
+      const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?█░▓▒┼┤├╬╪";
+      const el = document.getElementById("flap-text");
+      if (el) {
+        const FRAME_MS = 13;
+        const CYCLES_PER_CHAR = 2;
+        const display = Array.from(FINAL, c => c === " " ? " " : "█");
+
+        function commit() { el.textContent = display.join(""); }
+        commit();
+
+        let revealed = 0;
+        let cycleCount = 0;
+        const revealTimer = setInterval(() => {
+          cycleCount++;
+          if (cycleCount >= CYCLES_PER_CHAR) {
+            cycleCount = 0;
+            if (FINAL[revealed] !== " ") display[revealed] = FINAL[revealed];
+            revealed++;
+          }
+          if (revealed >= FINAL.length) {
+            for (let i = 0; i < FINAL.length; i++) display[i] = FINAL[i];
+            commit();
+            clearInterval(revealTimer);
+            scheduleShimmer();
+            return;
+          }
+          if (FINAL[revealed] !== " ") display[revealed] = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+          commit();
+        }, FRAME_MS);
+
+        // Shimmer: randomly flicker 1-2 letters, then snap back
+        const SHIMMER_POOL = FINAL.split("").map((c, i) => c !== " " && c !== "." ? i : -1).filter(i => i >= 0);
+        function shimmer() {
+          const count = 1 + Math.floor(Math.random() * 2);
+          const positions: number[] = [];
+          while (positions.length < count) {
+            const idx = SHIMMER_POOL[Math.floor(Math.random() * SHIMMER_POOL.length)];
+            if (!positions.includes(idx)) positions.push(idx);
+          }
+          let frames = 0;
+          const maxFrames = 2 + Math.floor(Math.random() * 2);
+          const flicker = setInterval(() => {
+            frames++;
+            for (const pos of positions) {
+              display[pos] = frames < maxFrames ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : FINAL[pos];
+            }
+            commit();
+            if (frames >= maxFrames) { clearInterval(flicker); scheduleShimmer(); }
+          }, 50);
+        }
+        function scheduleShimmer() { setTimeout(shimmer, 900 + Math.random() * 1800); }
+      }
+    </script>
+    <nav class="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm">
+      <a href="/blog" class="text-ctp-overlay1 hover:text-ctp-green transition-colors">» BLOG</a>
+      <a href="/projects" class="text-ctp-overlay1 hover:text-ctp-green transition-colors">» PROJECTS</a>
+      <a href="/til" class="text-ctp-overlay1 hover:text-ctp-green transition-colors">» TIL</a>
+      <a href="/about" class="text-ctp-overlay1 hover:text-ctp-green transition-colors">» ABOUT</a>
+      <a href="/uses" class="text-ctp-overlay1 hover:text-ctp-green transition-colors">» USES</a>
+    </nav>
   </section>
 
   {recentPosts.length > 0 && (
     <section class="mb-12">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-bold text-ctp-mauve">
-          <span class="text-ctp-green">{PROMPT_PREFIX}</span> recent posts
-        </h2>
-        <a href="/blog" class="text-sm text-ctp-overlay1 hover:text-ctp-green transition-colors">
-          all &rarr;
-        </a>
+      <h2 class="text-sm text-ctp-mauve mb-4">
+        ░&nbsp; RECENT POSTS
+      </h2>
+      <div class="border-l border-ctp-surface1 pl-4">
+        {recentPosts.map((post) => (
+          <BlogPostCard
+            title={post.data.title}
+            date={post.data.date}
+            description={post.data.description}
+            tags={post.data.tags}
+            id={post.id}
+          />
+        ))}
       </div>
-      {recentPosts.map((post) => (
-        <BlogPostCard
-          title={post.data.title}
-          date={post.data.date}
-          description={post.data.description}
-          tags={post.data.tags}
-          id={post.id}
-        />
-      ))}
+      <a href="/blog" class="inline-block mt-4 text-xs text-ctp-overlay0 hover:text-ctp-green transition-colors">
+        ── ALL POSTS &rarr;
+      </a>
     </section>
   )}
 
   {recentTils.length > 0 && (
     <section>
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-bold text-ctp-mauve">
-          <span class="text-ctp-green">{PROMPT_PREFIX}</span> recent til
-        </h2>
-        <a href="/til" class="text-sm text-ctp-overlay1 hover:text-ctp-green transition-colors">
-          all &rarr;
-        </a>
-      </div>
-      <div class="divide-y divide-ctp-surface0">
+      <h2 class="text-sm text-ctp-mauve mb-4">
+        ░&nbsp; RECENT TIL
+      </h2>
+      <div class="border-l border-ctp-surface1 pl-4">
         {recentTils.map((entry) => (
           <TilEntry title={entry.data.title} date={entry.data.date} id={entry.id} />
         ))}
       </div>
+      <a href="/til" class="inline-block mt-4 text-xs text-ctp-overlay0 hover:text-ctp-green transition-colors">
+        ── ALL ENTRIES &rarr;
+      </a>
     </section>
   )}
 </BaseLayout>

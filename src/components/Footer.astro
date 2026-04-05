@@ -4,17 +4,26 @@ import ThemePicker from './ThemePicker.astro';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-ctp-surface0 mt-16">
-  <div class="max-w-3xl mx-auto px-4 py-6 text-sm text-ctp-overlay0 flex flex-col sm:flex-row items-center justify-between gap-2">
-    <span>&copy; {year} quz.ma &middot; Code: MIT &middot; Content: CC BY 4.0</span>
-    <div class="flex items-center gap-3">
-      <a
-        href="https://github.com/DarkoKuzmanovic/quz.ma"
-        class="text-ctp-overlay1 hover:text-ctp-green transition-colors"
-      >
-        source
-      </a>
-      <ThemePicker />
+<footer class="mt-16">
+  <div class="max-w-3xl mx-auto px-4 text-xs text-ctp-overlay0">
+    <div class="flex items-center mb-4 text-ctp-surface1">
+      <span class="shrink-0">╟</span>
+      <span class="flex-1 overflow-hidden whitespace-nowrap leading-none">────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
+      <span class="shrink-0 px-2 text-ctp-overlay0">◈</span>
+      <span class="flex-1 overflow-hidden whitespace-nowrap leading-none">────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
+      <span class="shrink-0">╢</span>
+    </div>
+    <div class="pb-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>&copy; {year} QUZ.MA &middot; Code: MIT &middot; Content: CC BY 4.0</span>
+      <div class="flex items-center gap-3">
+        <a
+          href="https://github.com/DarkoKuzmanovic/quz.ma"
+          class="text-ctp-overlay1 hover:text-ctp-green transition-colors"
+        >
+          &gt; SOURCE
+        </a>
+        <ThemePicker />
+      </div>
     </div>
   </div>
 </footer>

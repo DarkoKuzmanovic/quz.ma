@@ -1,11 +1,7 @@
 ---
 name: "Piksi"
-description: "2-player online Pixies card game"
+description: "Two-player online Pixies card game. The server is authoritative; clients receive state updates over WebSocket."
 stack: ["TypeScript", "Fastify", "React", "WebSocket"]
-status: "active"
 url: "https://piksi.quz.ma"
 repo: "https://github.com/DarkoKuzmanovic/piksi"
-image: "piksi.svg"
 ---
-
-A real-time multiplayer card game built with a shared game engine. The server is authoritative — all game logic runs on the backend with the frontend receiving state updates over WebSocket.

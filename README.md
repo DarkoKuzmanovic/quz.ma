@@ -64,12 +64,9 @@ Create `src/content/projects/your-slug.md`:
 name: "Project Name"
 description: "One-liner"
 stack: ["Tech1", "Tech2"]
-status: "active"
 url: "https://example.com"
 repo: "https://github.com/you/repo"
 ---
-
-Optional longer description shown in expandable section.
 ```
 
 ## Deployment

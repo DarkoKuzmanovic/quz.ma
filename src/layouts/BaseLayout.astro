@@ -2,14 +2,15 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = 'Personal website of Darko Kuzmanovic' } = Astro.props;
-const pageTitle = title === 'Home' ? 'quz.ma' : `${title} | quz.ma`;
+const { title, description = SITE_DESCRIPTION } = Astro.props;
+const pageTitle = title === 'Home' ? SITE_TITLE : `${title} | quz.ma`;
 ---
 
 <!doctype html>
@@ -22,30 +23,13 @@ const pageTitle = title === 'Home' ? 'quz.ma' : `${title} | quz.ma`;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:site_name" content="quz.ma" />
     <meta name="theme-color" content="#1e1e2e" />
     <link rel="canonical" href={Astro.url.href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="alternate" type="application/rss+xml" title="quz.ma" href="/rss.xml" />
     <title>{pageTitle}</title>
-    <script is:inline>
-      (function() {
-        var t = localStorage.getItem('theme');
-        if (!t) return;
-        var themes = {
-          'dracula': {'--color-ctp-base':'#282a36','--color-ctp-mantle':'#21222c','--color-ctp-crust':'#191a21','--color-ctp-text':'#f8f8f2','--color-ctp-subtext1':'#e0e0da','--color-ctp-subtext0':'#c8c8c2','--color-ctp-overlay2':'#a0a0a0','--color-ctp-overlay1':'#7c7c7c','--color-ctp-overlay0':'#6272a4','--color-ctp-surface2':'#535669','--color-ctp-surface1':'#44475a','--color-ctp-surface0':'#383a4a','--color-ctp-mauve':'#bd93f9','--color-ctp-blue':'#8be9fd','--color-ctp-green':'#50fa7b','--color-ctp-peach':'#ffb86c','--color-ctp-red':'#ff5555','--color-ctp-yellow':'#f1fa8c','--color-ctp-teal':'#8be9fd','--color-ctp-lavender':'#bd93f9'},
-          'gruvbox': {'--color-ctp-base':'#282828','--color-ctp-mantle':'#1d2021','--color-ctp-crust':'#141617','--color-ctp-text':'#ebdbb2','--color-ctp-subtext1':'#d5c4a1','--color-ctp-subtext0':'#bdae93','--color-ctp-overlay2':'#a89984','--color-ctp-overlay1':'#928374','--color-ctp-overlay0':'#7c6f64','--color-ctp-surface2':'#665c54','--color-ctp-surface1':'#504945','--color-ctp-surface0':'#3c3836','--color-ctp-mauve':'#d3869b','--color-ctp-blue':'#83a598','--color-ctp-green':'#b8bb26','--color-ctp-peach':'#fe8019','--color-ctp-red':'#fb4934','--color-ctp-yellow':'#fabd2f','--color-ctp-teal':'#8ec07c','--color-ctp-lavender':'#d3869b'},
-          'nord': {'--color-ctp-base':'#2e3440','--color-ctp-mantle':'#272c36','--color-ctp-crust':'#20242d','--color-ctp-text':'#eceff4','--color-ctp-subtext1':'#e5e9f0','--color-ctp-subtext0':'#d8dee9','--color-ctp-overlay2':'#b0b8c8','--color-ctp-overlay1':'#8891a5','--color-ctp-overlay0':'#6b7386','--color-ctp-surface2':'#4c566a','--color-ctp-surface1':'#434c5e','--color-ctp-surface0':'#3b4252','--color-ctp-mauve':'#b48ead','--color-ctp-blue':'#81a1c1','--color-ctp-green':'#a3be8c','--color-ctp-peach':'#d08770','--color-ctp-red':'#bf616a','--color-ctp-yellow':'#ebcb8b','--color-ctp-teal':'#88c0d0','--color-ctp-lavender':'#8fbcbb'},
-          'solarized': {'--color-ctp-base':'#002b36','--color-ctp-mantle':'#00252f','--color-ctp-crust':'#001f27','--color-ctp-text':'#fdf6e3','--color-ctp-subtext1':'#eee8d5','--color-ctp-subtext0':'#d4cfc4','--color-ctp-overlay2':'#93a1a1','--color-ctp-overlay1':'#839496','--color-ctp-overlay0':'#657b83','--color-ctp-surface2':'#586e75','--color-ctp-surface1':'#2a4a53','--color-ctp-surface0':'#073642','--color-ctp-mauve':'#6c71c4','--color-ctp-blue':'#268bd2','--color-ctp-green':'#859900','--color-ctp-peach':'#cb4b16','--color-ctp-red':'#dc322f','--color-ctp-yellow':'#b58900','--color-ctp-teal':'#2aa198','--color-ctp-lavender':'#6c71c4'},
-          'tokyo-night': {'--color-ctp-base':'#1a1b26','--color-ctp-mantle':'#16161e','--color-ctp-crust':'#101014','--color-ctp-text':'#c0caf5','--color-ctp-subtext1':'#a9b1d6','--color-ctp-subtext0':'#9aa5ce','--color-ctp-overlay2':'#787c99','--color-ctp-overlay1':'#565f89','--color-ctp-overlay0':'#414868','--color-ctp-surface2':'#3b3f5c','--color-ctp-surface1':'#33354a','--color-ctp-surface0':'#292e42','--color-ctp-mauve':'#bb9af7','--color-ctp-blue':'#7aa2f7','--color-ctp-green':'#9ece6a','--color-ctp-peach':'#ff9e64','--color-ctp-red':'#f7768e','--color-ctp-yellow':'#e0af68','--color-ctp-teal':'#73daca','--color-ctp-lavender':'#b4f9f8'}
-        };
-        var vars = themes[t];
-        if (!vars) return;
-        var r = document.documentElement;
-        for (var k in vars) r.style.setProperty(k, vars[k]);
-      })();
-    </script>
   </head>
   <body class="bg-ctp-base text-ctp-text min-h-screen flex flex-col font-mono leading-[1.7]">
     <Header />

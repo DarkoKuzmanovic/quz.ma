@@ -1,10 +1,6 @@
 ---
 name: "Djordje"
-description: "Remote MCP server connecting Gorgias helpdesk to Claude.ai"
+description: "Remote MCP server that connects a Gorgias helpdesk to Claude.ai — search tickets, view conversations, and reply to customers without leaving the chat."
 stack: ["TypeScript", "MCP", "Docker"]
-status: "active"
 repo: "https://github.com/DarkoKuzmanovic/djordje-mcp"
-image: "djordje-mcp.svg"
 ---
-
-Remote MCP server that connects Gorgias helpdesk to Claude.ai via the Model Context Protocol. Paste a Gorgias ticket URL or ID in Claude and discuss it directly — search tickets, view conversations, reply to customers, and manage assignments without leaving the chat.

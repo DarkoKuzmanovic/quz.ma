@@ -2,11 +2,47 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About">
+<BaseLayout
+  title="About"
+  description="About Darko Kuzmanovic — builder of coding-agent tools, terminal utilities, and small software projects."
+>
   <h1 class="text-lg text-ctp-mauve mb-6">
     ░&nbsp; ABOUT
   </h1>
-  <div class="prose prose-terminal max-w-none">
-    <p>TODO: Write about yourself here.</p>
+
+  <div class="space-y-4 text-sm text-ctp-subtext0 max-w-xl">
+    <p>
+      I am Darko Kuzmanovic. I build software — mostly late at night, mostly
+      for myself, my work, or small communities. Recently that has meant
+      tooling for coding agents: extensions for Pi, terminal utilities,
+      orchestration helpers, and the occasional small app.
+    </p>
+    <p>
+      Most of what I built over the years stayed private. More of it is public
+      now, and this site is where I collect the work and write down what I
+      learn along the way.
+    </p>
   </div>
+
+  <h2 class="text-sm text-ctp-mauve mt-10 mb-4">
+    ░&nbsp; THIS SITE
+  </h2>
+  <p class="text-sm text-ctp-subtext0 max-w-xl">
+    A deliberately small static site, built with Astro and set in Departure
+    Mono over Catppuccin Mocha. The source is on
+    <a
+      href="https://github.com/DarkoKuzmanovic/quz.ma"
+      class="text-ctp-green hover:text-ctp-mauve transition-colors"
+    >GitHub</a>.
+  </p>
+
+  <h2 class="text-sm text-ctp-mauve mt-10 mb-4">
+    ░&nbsp; SETUP
+  </h2>
+  <ul class="text-sm text-ctp-subtext0 max-w-xl space-y-2">
+    <li><span class="text-ctp-overlay0">Editor —</span> VS Code Insiders, occasionally Zed</li>
+    <li><span class="text-ctp-overlay0">Terminal —</span> WezTerm, Konsole</li>
+    <li><span class="text-ctp-overlay0">OS —</span> EndeavourOS with KDE Plasma</li>
+    <li><span class="text-ctp-overlay0">Machine —</span> Ryzen 5 3600, RX 580, 32 GB RAM</li>
+  </ul>
 </BaseLayout>

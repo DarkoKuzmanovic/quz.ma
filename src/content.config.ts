@@ -28,10 +28,8 @@ const projects = defineCollection({
     name: z.string(),
     description: z.string(),
     stack: z.array(z.string()),
-    status: z.enum(['active', 'archived']),
     url: z.string().optional(),
     repo: z.string().optional(),
-    image: z.string().optional(),
   }),
 });
 

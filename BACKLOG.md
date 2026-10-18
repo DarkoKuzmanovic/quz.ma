@@ -71,4 +71,4 @@ Rules from the System board, to carry into the code:
 
 ## Check before shipping
 
-- **Which deploy path is live.** README and `docs/cloudflare-pages-setup.md` say a push to `main` auto-deploys on Cloudflare Pages. But `wrangler.jsonc` describes a Worker (`quzma`) serving `./dist`, and the DNS record for quz.ma is set up for a Worker. Confirm which one serves the site before the first redesign push.
+- **Fix the deploy docs.** The site is built by Cloudflare Workers Builds for the `quzma` Worker: that was the only check on PR #1, and no Pages check ran. README and `docs/cloudflare-pages-setup.md` still describe Cloudflare Pages, so correct them in the first redesign PR.
